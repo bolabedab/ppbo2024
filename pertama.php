@@ -2,5 +2,14 @@
 
 date_default_timezone_set("Asia/Jakarta");
 $nama = readline('Masukkan nama Anda: ');
-$waktu = date('H');
-echo "Halo {$nama} sekarang pukul {$waktu}\n";
+$jam = date('H');
+if ($jam >=5 && $jam < 11){
+    $waktu = "Selamat pagi";
+} else if ($jam >= 11 && $jam < 15){
+    $waktu = "Selamat Siang";
+} else if ($jam >= 15 && $jam < 19){
+    $waktu = "Selamat Sore";
+} else {
+    $waktu = "Selamat malam";
+}
+echo "{$waktu}, {$nama} sekarang pukul {$jam}\n";
