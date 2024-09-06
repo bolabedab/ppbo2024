@@ -4,24 +4,51 @@ class Author {
     public $name;
     public $description;
 
+    public function __construct($name, $description)
+    {
+        $this->name = $name;
+        $this->description = $description;
+    }
+
+    public function show($type): array
+    {
+        if ($type == "name") {
+            return ['name' => $this->name];
+        } elseif ($type == "description") {
+            return ['description' => $this->description];
+        } else {
+            return ['name' => $this->name, 'description' => $this->description];
+        }
+    }
 }
 
-class Publisher {
+
+class Publisher
+{
     public $name;
     public $address;
     private $phone;
 
-    public function setPhone($phone) {
+    public function __construct($name, $address)
+    {
+        $this->name = $name;
+        $this->address = $address;
+    }
+
+    public function setPhone($phone): void
+    {
         $this->phone = $phone;
     }
 
-    public function getPhone() {
+
+    public function getPhone(): string
+    {
         return $this->phone;
     }
-
 }
 
-class Book {
+class Book
+{
     public $ISBN;
     public $title;
     public $description;
@@ -31,42 +58,59 @@ class Book {
     public $author;
     public $publisher;
 
-    public function showAll() {
+    public function __construct($ISBN, $title, $description, $category, $language, $numberOfPage, $author, $publisher)
+    {
+        $this->ISBN = $ISBN;
+        $this->title = $title;
+        $this->description = $description;
+        $this->category = $category;
+        $this->language = $language;
+        $this->numberOfPage = $numberOfPage;
+        $this->author = $author;
+        $this->publisher = $publisher;
+    }
+
+    public function showAll(): array
+    {
         return [
             'ISBN' => $this->ISBN,
-            'Title' => $this->title,
-            'Description' => $this->description,
-            'Language' => $this->language,
-            'Number of Page' => $this->numberOfPage,
-            'Author' => $this->author,
-            'Publisher' => $this->publisher,
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+            'language' => $this->language,
+            'numberOfPage' => $this->numberOfPage,
+            'author' => $this->author,
+            'publisher' => $this->publisher,
         ];
     }
 
-    public function detail($ISBN) {
+    public function detail($ISBN): array
+    {
         if ($this->ISBN == $ISBN) {
             return $this->showAll();
+        } else {
+            return ['error' => 'ISBN tidak ditemukan'];
         }
-        return null;
     }
 }
 
-$author = new Author();
-$author->name = "Eichiro Oda";
-$author->description = "Penulis komik One Piece";
+$author = new Author("Eichiro Oda", "Penulis dari One Piece");
+$publisher = new Publisher("Jepang", "50 Bedford Square, Jepang");
+$publisher->setPhone("123456789");
+$book = new Book(9780747532743, "Harry Potter and the Philosopher's Stone", "Novel fantasi", "Fantasy", "English", 223, $author->name, $publisher->name);
 
-$publisher = new Publisher();
-$publisher->name = "Elex Media Komputindo";
-$publisher->address = "Jakarta";
-$publisher->setPhone("+62-21-53650110");
-
-$book = new Book();
-$book->ISBN = 9786230028755;
-$book->title = "One piece volume 97";
-$book->description = "One Piece bercerita tentang perjalanan Luffy yang mengarungi lautan untuk menjadi Raja Bajak Laut. Dengan jiwa semangat yang kuat, Luffy mengarungi lautan untuk menemukan orang-orang yang bisa ia ajak untuk menjadi bagian dari kru bajak laut miliknya.";
-$book->language = "Indonesia";
-$book->numberOfPage = 200;
-$book->author = $author->name;
-$book->publisher = $publisher->name;
-
+echo "Informasi Buku:\n";
 print_r($book->showAll());
+
+echo "Detail Buku dengan ISBN 9780747532743:\n";
+print_r($book->detail(9780747532743));
+
+echo "Informasi Author:\n";
+print_r($author->show('name'));
+
+echo "Informasi Publisher dan Nomor Telepon:\n";
+echo "Nama: " . $publisher->name . "\n";
+echo "Alamat: " . $publisher->address . "\n";
+echo "Telepon: " . $publisher->getPhone() . "\n";
+
+?>
