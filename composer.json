@@ -1,0 +1,13 @@
+{
+    "name": "bolabedab/ppbo2024",
+    "description": "merupakan package untuk latihan praktikum pemograman berorientasi objek",
+    "type": "project",
+    "license": "MIT",
+
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\":"App"
+        }
+    }
+}
