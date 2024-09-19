@@ -5,8 +5,8 @@ namespace App\Admin;
 class TenagaKependidikan extends Pegawai{
     public $gaji_pokok;
 
-    public function __construct(int $gaji_pokok, int $nip, int $no_hp, string $nama, string $alamat){
-        parent::__construct($alamat,$nama,$no_hp,$nip);
+    public function __construct(int $nip, string $nama, int $no_hp, string $alamat, int $gaji_pokok){
+        parent::__construct($nip,$nama,$no_hp,$alamat);
         $this->gaji_pokok=$gaji_pokok;
     }
 
